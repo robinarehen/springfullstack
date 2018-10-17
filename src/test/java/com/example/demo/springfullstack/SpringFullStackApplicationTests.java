@@ -27,17 +27,21 @@ public class SpringFullStackApplicationTests {
     private TaskService taskService;
 
 
-    //@Before
+    @Before
     public void initDB(){
 
         {
             User user = new User("robin@g.c","Robin","abc123");
-            this.userService.create(user);
+            if (!this.userService.isUserExists(user.getEmail())) {
+                this.userService.create(user);
+            }
         }
         {
             User user = new User("robinAdmin@g.c","Robin Admin","abc123");
             user.setRoles(Arrays.asList(new Role("ADMIN")));
-            this.userService.create(user);
+            if (!this.userService.isUserExists(user.getEmail())) {
+                this.userService.create(user);
+            }
         }
 
         Task task = new Task("19/10/2018","08:00","18:00","You need to work all day");
