@@ -14,7 +14,7 @@
                 User was created successful
             </p>
         </div>
-        <form th:action="@{/addtask}" th:object="${task}" th:method="post">
+        <form th:action="@{/addTask}" th:object="${task}" th:method="post">
             <div class="form-group">
                 <label for="date" class="form-control-label">Date</label>
                 <input type="date" th:field="*{date}" id="date" class="form-control">

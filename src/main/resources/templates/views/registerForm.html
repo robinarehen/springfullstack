@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="fragments/head::head">
     <title>Register</title>
 </head>
@@ -20,7 +21,7 @@
             </p>
         </div>
         <form th:action="@{/register}" th:object="${user}" th:method="post">
-            <div class="form-group">
+            <div class="form-group" sec:authorize="hasRole('ROLE_ADMIN')">
                 <select name="role" id="" class="custom-select">
                     <option th:each="role:${user.roles}" th:text="${role.name}"></option>
                 </select>

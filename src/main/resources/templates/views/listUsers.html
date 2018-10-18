@@ -30,7 +30,7 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.roles.get(0).name}"></td>
                 <td>
-                    <a th:href="@{/addtask(email=${user.email})}" class="btn btn-primary">Add Task</a>
+                    <a th:href="@{/addTask(email=${user.email})}" class="btn btn-primary">Add Task</a>
                 </td>
             </tr>
             </tbody>

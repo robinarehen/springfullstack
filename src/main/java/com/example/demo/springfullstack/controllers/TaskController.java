@@ -24,7 +24,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/addtask")
+    @GetMapping("/addTask")
     public String addTaskForm(String email, Model model, HttpSession session) {
 
         session.setAttribute("email", email);
@@ -34,7 +34,7 @@ public class TaskController {
         return "views/addTaskForm";
     }
 
-    @PostMapping("/addtask")
+    @PostMapping("/addTask")
     public String addTask(@Valid Task task, BindingResult bindingResult, Model model, HttpSession session) {
 
         if (!bindingResult.hasErrors()) {

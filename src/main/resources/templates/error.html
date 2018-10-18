@@ -9,10 +9,12 @@
 
     <main class="container mySpace">
         <div class="jumbotron">
-            <h2 class="text text-center">Welcome to Schedule</h2>
-            <p>
-                Here you can schedule your day, week or month.
-            </p>
+            <div class="alert alert-danger">
+                <h2 class="text-center">There was an error</h2>
+                <p class="text-center">
+                    <span th:text="${message}"></span> : <span class="text-center" th:text="${status}"></span>
+                </p>
+            </div>
         </div>
     </main>
 

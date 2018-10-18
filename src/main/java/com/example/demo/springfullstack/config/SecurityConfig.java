@@ -50,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(patterms)
-                .permitAll().anyRequest().authenticated()
+                .permitAll()
+                .antMatchers("/users","/addTask").hasRole("ADMIN")
+                .antMatchers("/profile").hasAnyRole("ADMIN,USER")
                 .and()
                 .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/profile")
                 .and()

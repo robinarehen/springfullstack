@@ -38,7 +38,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam("role") String role, @Valid User user, BindingResult bindingResult, Model model) {
+    public String register(@RequestParam(defaultValue = "") String role, @Valid User user, BindingResult bindingResult, Model model) {
 
         boolean error = false;
 
@@ -52,7 +52,9 @@ public class RegisterController {
 
             } else {
 
-                user.setRoles(Arrays.asList(new Role(role)));
+                if (!role.isEmpty()) {
+                    user.setRoles(Arrays.asList(new Role(role)));
+                }
 
                 this.userService.create(user);
 
