@@ -20,7 +20,7 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    public User create(User user){
+    public User create(User user) {
 
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
 
@@ -34,12 +34,21 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User findOne(String email){
-
+    public User findOne(String email) {
         return this.userRepository.findByEmail(email);
     }
 
     public boolean isUserExists(String email) {
         return this.userRepository.existsById(email);
+    }
+
+    public List<User> findAll() {
+        return this.userRepository.findAll();
+    }
+
+    public List<User> findByName(String name) {
+        name = ("%").concat(name).concat("%");
+
+        return this.userRepository.findByNameLike(name);
     }
 }

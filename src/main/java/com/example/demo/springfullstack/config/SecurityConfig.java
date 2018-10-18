@@ -23,7 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         String[] patterms = new String[]{
-                "/", "/register", "/css/**", "/webjars/**"
+                "/",
+                "/register",
+                "/users",
+                "/addtask",
+                "/css/**",
+                "/webjars/**"
         };
 
         http.authorizeRequests()
