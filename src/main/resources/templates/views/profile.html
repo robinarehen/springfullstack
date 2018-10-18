@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head::head">
+    <title>Users</title>
+</head>
+<body>
+
+<div th:replace="fragments/header::header"></div>
+
+<main class="container mySpace">
+    <div class="jumbotron">
+        <!--<form action="/users" class="form-inline">
+            <div class="form-group mb-2">
+                <input type="text" name="name" id="name" class="form-control"/>
+                <input type="submit" value="Search" class="btn btn-primary">
+            </div>
+        </form>-->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Stop Time</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task:${tasks}">
+                <td th:text="${task.date}"></td>
+                <td th:text="${task.startTime}"></td>
+                <td th:text="${task.stopTime}"></td>
+                <td th:text="${task.description}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<div th:replace="fragments/footer::footer"></div>
+
+</body>
+</html>

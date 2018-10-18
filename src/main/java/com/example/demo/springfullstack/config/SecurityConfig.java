@@ -20,13 +20,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        String userQuery = "SELECT email as principal, password as crendentails, true FROM user WHERE email = ?";
+        String roleQuery = "SELECT user_email as principal, role_name as role FROM user_roles WHERE user_email = ?";
+
+        auth.jdbcAuthentication()
+                .dataSource(this.dataSource)
+                .usersByUsernameQuery(userQuery)
+                .authoritiesByUsernameQuery(roleQuery)
+                .passwordEncoder(this.passwordEncoder())
+                .rolePrefix("ROLE_");
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         String[] patterms = new String[]{
                 "/",
                 "/register",
-                "/users",
-                "/addtask",
                 "/css/**",
                 "/webjars/**"
         };
@@ -35,40 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(patterms)
                 .permitAll().anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/users")
+                .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/profile")
                 .and()
                 .logout().logoutSuccessUrl("/login");
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        /*
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        String password = bCryptPasswordEncoder.encode("abc123");
-
-        auth.inMemoryAuthentication()
-                .passwordEncoder(bCryptPasswordEncoder)
-                .withUser("user").password(password).roles("USER")
-                .and()
-                .withUser("admin").password(password).roles("ADMIN");
-
-        //*/
-
-        String userQuery = "SELECT email as principal, password as credentials, true FROM user WHERE email = ?";
-        //String roleQuery = "SELECT user_email as principal, role_name as role FROM user_roles WHERE user_email = ?";
-
-        auth.jdbcAuthentication()
-                .dataSource(this.dataSource)
-                .passwordEncoder(this.passwordEncoder())
-                .usersByUsernameQuery(userQuery)
-                //.authoritiesByUsernameQuery(roleQuery)
-                .rolePrefix("ROLE_");
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
