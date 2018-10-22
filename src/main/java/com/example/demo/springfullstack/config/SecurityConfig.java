@@ -41,28 +41,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        String[] patterms = new String[]{
+        String[] patterns = new String[]{
                 "/",
                 "/register",
                 "/css/**",
                 "/webjars/**"
         };
 
-        String[] pattermsAdmin = new String[]{
+        String[] patternsAdmin = new String[]{
                 "/register",
                 "/users",
                 "/addTask"
         };
 
-        String[] pattermsUser = new String[]{
+        String[] patternsUser = new String[]{
                 "/profile"
         };
 
         http.authorizeRequests()
-                .antMatchers(patterms)
+                .antMatchers(patterns)
                 .permitAll()
-                .antMatchers(pattermsAdmin).hasRole("ADMIN")
-                .antMatchers(pattermsUser).hasAnyRole("ADMIN,USER")
+                .antMatchers(patternsAdmin).hasRole("ADMIN")
+                .antMatchers(patternsUser).hasAnyRole("ADMIN,USER")
                 .and()
                 .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/profile")
                 .and()
