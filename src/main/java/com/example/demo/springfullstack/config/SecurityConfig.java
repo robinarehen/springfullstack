@@ -48,11 +48,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/webjars/**"
         };
 
+        String[] pattermsAdmin = new String[]{
+                "/register",
+                "/users",
+                "/addTask"
+        };
+
+        String[] pattermsUser = new String[]{
+                "/profile"
+        };
+
         http.authorizeRequests()
                 .antMatchers(patterms)
                 .permitAll()
-                .antMatchers("/users","/addTask").hasRole("ADMIN")
-                .antMatchers("/profile").hasAnyRole("ADMIN,USER")
+                .antMatchers(pattermsAdmin).hasRole("ADMIN")
+                .antMatchers(pattermsUser).hasAnyRole("ADMIN,USER")
                 .and()
                 .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/profile")
                 .and()

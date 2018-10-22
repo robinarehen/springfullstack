@@ -13,7 +13,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="(isAuthenticated() && hasRole('ROLE_ADMIN')) || !isAuthenticated()">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
